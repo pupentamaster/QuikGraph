@@ -1,4 +1,4 @@
-#if !SUPPORTS_SORTEDSET
+﻿#if !SUPPORTS_SORTEDSET
 using System.Security;
 using JetBrains.Annotations;
 

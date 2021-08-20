@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
+//using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using System.Security;
 using System.Threading;
@@ -1455,7 +1455,7 @@ namespace QuikGraph.Collections
         {
             get
             {
-                T ret = default(T);
+                var ret = default(T);
                 InOrderTreeWalk(n =>
                 {
                     ret = n.Item;
@@ -1472,7 +1472,7 @@ namespace QuikGraph.Collections
         {
             get
             {
-                T ret = default(T);
+                var ret = default(T);
                 InOrderTreeWalk(n =>
                 {
                     ret = n.Item;
@@ -1488,7 +1488,7 @@ namespace QuikGraph.Collections
         [NotNull, ItemCanBeNull]
         public IEnumerable<T> Reverse()
         {
-            Enumerator e = new Enumerator(this, true);
+            var e = new Enumerator(this, true);
             while (e.MoveNext())
             {
                 yield return e.Current;
@@ -1589,7 +1589,7 @@ namespace QuikGraph.Collections
         }
 
         /// <inheritdoc cref="IEnumerable{T}" />
-        [SuppressMessage("Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes", Justification = "not an expected scenario")]
+        //[SuppressMessage("Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes", Justification = "not an expected scenario")]
 #if SUPPORTS_SERIALIZATION
         [Serializable]
         public struct Enumerator : IEnumerator<T>, ISerializable, IDeserializationCallback
@@ -1838,6 +1838,17 @@ namespace QuikGraph.Collections
                 value >>= 1;
             }
             return c;
+        }
+
+        #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnDeserialization(object sender)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

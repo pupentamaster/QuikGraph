@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net35;net40;net45;netstandard1.3;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net50;netstandard2.0</TargetFrameworks>
 
     <GeneratePackageOnBuild>$(Generate_QuikGraph_Core)</GeneratePackageOnBuild>
 
@@ -52,12 +52,14 @@ New:
 Misc:
 - Remove the dependency to System.Collections.NonGeneric for .NET Standard 1.3 target.</PackageReleaseNotes>
     <PackageTags>QuickGraph QuikGraph Graph Structure Algorithm C# .NET</PackageTags>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>sign.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <!-- Targets defines -->
-  <PropertyGroup Condition="'$(TargetFramework)'=='net35'">
-    <AssemblyTitle>QuikGraph .NET 3.5</AssemblyTitle>
-    <DefineConstants>$(DefineConstants);NET35;SUPPORTS_SERIALIZATION;SUPPORTS_CLONEABLE;SUPPORTS_CONVERTER;SUPPORTS_TYPE_FULL_FEATURES;SUPPORTS_CRYPTO_RANDOM;$(AdditionalConstants)</DefineConstants>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net50'">
+    <AssemblyTitle>QuikGraph .NET 5.0</AssemblyTitle>
+    <DefineConstants>$(DefineConstants);NET50;SUPPORTS_SERIALIZATION;SUPPORTS_CLONEABLE;SUPPORTS_CONVERTER;SUPPORTS_TYPE_FULL_FEATURES;SUPPORTS_CRYPTO_RANDOM;$(AdditionalConstants)</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)'=='net40'">
@@ -76,9 +78,24 @@ Misc:
     <AssemblyTitle>QuikGraph .NET Standard 2.0</AssemblyTitle>
     <DefineConstants>$(DefineConstants);NETSTANDARD2_0;SUPPORTS_SERIALIZATION;SUPPORTS_CLONEABLE;SUPPORTS_CONVERTER;SUPPORTS_TYPE_FULL_FEATURES;SUPPORTS_ENUMERABLE_COVARIANT;SUPPORTS_SORTEDSET;SUPPORTS_AGGRESSIVE_INLINING;SUPPORTS_CRYPTO_RANDOM;$(AdditionalConstants)</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net50|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net50|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
 
   <!-- Dependencies -->
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.3'">
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Algorithms\GraphPartition\KernighanLinAlgorithm.cs" />
   </ItemGroup>
 </Project>

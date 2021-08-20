@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -182,7 +182,7 @@ namespace QuikGraph.Algorithms.ConnectedComponents
         private void ReduceComponentsIndexes()
         {
             // Extract unique component indexes (sorted)
-            var components = new SortedSet<int>();
+            var components = new System.Collections.Generic.SortedSet<int>();
             foreach (int componentNumber in Components.Values)
             {
                 components.Add(componentNumber);
